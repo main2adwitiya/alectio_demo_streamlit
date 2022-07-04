@@ -1,5 +1,7 @@
-### Instructions
+# Alectio Streamlit app
 
-~ cd streamlit_app
-~ pip install -r requirements.txt
-~ streamlit run main_app.py 
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+### Instructions
+- cd streamlit_app
+- pip install -r requirements.txt
+- streamlit run main_app.py
