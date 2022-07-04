@@ -1,0 +1,7 @@
+matplotlib==3.5.2
+numpy==1.23.0
+pandas==1.4.3
+Pillow==9.2.0
+scikit_image==0.19.3
+skimage==0.0
+streamlit==1.10.0
