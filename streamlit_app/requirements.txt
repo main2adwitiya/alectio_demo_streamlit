@@ -9,4 +9,4 @@ streamlit==1.10.0
 streamlit_drawable_canvas==0.9.1
 torch==1.12.0
 torchvision==0.13.0
-boto3
+boto3==1.15.0
