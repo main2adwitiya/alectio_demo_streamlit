@@ -12,13 +12,15 @@ import pickle
 import pandas as pd
 import numpy as np
 import os
+import boto3
+import pickle
+s3 = boto3.resource('s3')
 
 colors = ['#C8B6E2','#b59dd8', '#a081cd','#847eba', '#7A86B6','#6c81ad','#6c81ad', '#495C83']
 colors1 = ['gold', 'lightgreen', 'lightcoral', 'lightskyblue']
 class_list=['The Eiffel Tower','airplane','apple', 'backpack','banana','bicycle','bird','book']
 def get_desired_data(query_strategy,loop_number):
-    with open(f'ALL/{query_strategy}/metrics/test/metrics_{loop_number}.pkl', 'rb') as f:
-        data = pickle.load(f)
+    data=pickle.loads(s3.Bucket("s3-bucket-link-test-delete").Object(f'ALL/{query_strategy}/metrics/test/metrics_{loop_number}.pkl').get()['Body'].read())
     return data
 
 
@@ -112,7 +114,7 @@ def precision_per_class(data,loop_number):
 
 
 def comparison_function():
-    analysis_dir='../ALL'
+    #analysis_dir='../ALL'
     num_loops=10
     strats = {
 
@@ -127,12 +129,13 @@ def comparison_function():
 
     for k in qs_name:
         for i in range(num_loops):
-                with open(os.path.join('ALL',k) + "/metrics/test/metrics_" + str(i) + ".pkl", "rb") as f:
-                    data = pickle.load(f)
-                    accuracies[k].append(data["accuracy"])
-
+            data=pickle.loads(s3.Bucket("s3-bucket-link-test-delete").Object(f'ALL/{k}/metrics/test/metrics_{str(i)}.pkl').get()['Body'].read())
+            accuracies[k].append(data["accuracy"])
+                # with open(os.path.join('ALL',k) + "/metrics/test/metrics_" + str(i) + ".pkl", "rb") as f:
+                #     data = pickle.load(f)
+            
+   
     df=pd.DataFrame(accuracies)
-
     fig = px.line(df,markers=True,
                    labels={
                          "value": "Acc",

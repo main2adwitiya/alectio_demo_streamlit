@@ -57,7 +57,7 @@ def load_model(type_model):
     num_ftrs = model.fc.in_features
     model.fc = nn.Linear(num_ftrs, 8)
     
-    model.load_state_dict(torch.load(f'ALL/{type_model}/last.pt',map_location=torch.device('cpu')))
+    model.load_state_dict(torch.load(f'data/{type_model}/last.pt',map_location=torch.device('cpu')))
     return model
 
 
